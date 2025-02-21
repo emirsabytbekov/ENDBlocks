@@ -12,7 +12,12 @@ let score = 0;
       area.parentElement.setAttribute("draggable", "true")
     });
   });
-  console.log(areas);
+  areas.forEach(area => {
+    area.addEventListener("mouseout", () => {
+
+      area.parentElement.setAttribute("draggable", "false ")
+    });
+  });
 }
 
   drArea();
