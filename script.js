@@ -1,4 +1,6 @@
-  function drag(ev) {
+let score = 0;
+ 
+ function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
   }
 
@@ -156,7 +158,7 @@
       ev.target.removeChild(document.getElementById(data));
     }
     
-  
+    DeleteLines()
     //added timeout to update DOM
     setTimeout(() => {
       //added check for possibility to place figures after every move
@@ -175,3 +177,61 @@
     }
     return true;
   }
+
+  
+function DeleteLines() {
+    const cellsToDelete = new Set(); // Используем Set, чтобы избежать дублирования
+  
+    // Проверяем ряды
+    for (let j = 0; j < 8; j++) { 
+      let rowStartID = 1 + j * 8;
+      if (checkRow(rowStartID)) {
+        for (let k = 0; k < 8; k++) {
+          cellsToDelete.add(rowStartID + k);
+        }
+      }
+    }
+  
+    // Проверяем колонки
+    for (let j = 1; j <= 8; j++) {
+      if (checkColumn(j)) {
+        for (let k = 0; k < 8; k++) {
+          cellsToDelete.add(j + k * 8);
+        }
+      }
+    }
+    score += cellsToDelete.size;
+    const scoreValue = document.querySelector(".score");
+    scoreValue.textContent = "SCORE: " + score;
+    // Удаляем все ячейки
+    cellsToDelete.forEach(cellID => {
+      const block = document.getElementById(cellID);
+      if (block && block.firstElementChild) {
+        block.removeChild(block.firstElementChild);
+      }
+    });
+   
+  }
+  
+  function checkColumn(colStartID) {
+    const numRows = 8;
+    for (let i = 0; i < numRows; i++) {
+      const block = document.getElementById(colStartID + i * 8);
+      if (!block || block.children.length === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  function checkRow(rowStartID) {
+    const numCol = 8; // Количество блоков в ряду
+    for (let i = 0; i < numCol; i++) {
+      const block = document.getElementById(rowStartID + i);
+      if (!block || block.children.length === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
