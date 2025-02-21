@@ -289,7 +289,13 @@ function DeleteLines() {
          }
         } 
   
-        
+        else if(figure.classList.contains('i-shape')) {
+          for (let i=0; i<8; i++){
+            if (blockId !== i+1  &&  blockId !== i+49  &&  blockId !== i+57){
+              positions.push(blockId, blockId-8, blockId+8, blockId+16);  
+            }
+          }
+        } 
           
         canPlace = positions.every(id => {
           const el = document.getElementById(id);

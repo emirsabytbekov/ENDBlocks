@@ -123,8 +123,8 @@ body {
 }
 
 .l{
-border-radius: 0.2rem;
-width: 3rem;
+  border-radius: 0.2rem;
+  width: 3rem;
   height: 3rem;
   background-color: orange;
 }
@@ -135,8 +135,8 @@ width: 3rem;
   grid-column: 2;  /* Во втором столбце (справа) */
   border-radius: 0.2rem;
   width: 3rem;
-    height: 3rem;
-    background-color: orange;
+  height: 3rem;
+  background-color: orange;
 }
 
 .l-shape .drag-area{
@@ -151,15 +151,37 @@ width: 3rem;
   gap: 0.25rem;
   width: fit-content;
   z-index: 10;
-  }
+}
   
-  .o {
+.o {
   border-radius: 0.2rem;
   width: 3rem;
   height: 3rem;
   background-color: blue;
-  }
+}
   
-  .o-shape .drag-area{
-    background-color: rgb(1, 1, 199) !important;
-  }
+.o-shape .drag-area{
+  background-color: rgb(1, 1, 199) !important;
+}
+
+.i-shape {
+  display: grid;
+  grid-template-columns: 3rem;  /* Один столбец */
+  grid-template-rows: 3rem 3rem 3rem 3rem;  /* Четыре строки */
+  gap: 0.25rem;
+  width: fit-content;
+  grid-auto-flow: column;
+  z-index: 10;
+}
+
+.i{
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: green;
+}
+
+.i-shape .drag-area{
+  background-color: rgb(1, 91, 1) !important;
+}
+
