@@ -15,7 +15,19 @@
   <div class="container">
 
     <div class="blockSpawner">
-      
+      <div id="t-shape"  draggable="true" ondragstart="drag(event)"  class="t-shape figure" >
+        <div class="t placed"></div> 
+        <div class="t placed drag-area"></div> 
+        <div class="t placed"></div>
+        <div class="center"></div>
+      </div>
+    
+      <div id="l-shape"  draggable="true" ondragstart="drag(event)" class="l-shape figure" >
+        <div class="placed l"></div> 
+        <div class="placed l drag-area"></div> 
+        <div class="placed l"></div> 
+        <div class="corner"></div>
+      </div>
     </div>
 
     <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="blockField">

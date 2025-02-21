@@ -56,11 +56,80 @@ body {
   background-color: #db967c;
   border-radius: 0.5rem;
   width: 15rem;
-  height: 28rem;
+  height: 32rem;
   position: absolute;
   left: 2rem;
   display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center ;
+}
+  
+.figure {
+  margin: 1rem;
+  }
+  
+.figure .drag-area{
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  }
+
+
+.t-shape {
+  display: grid;
+  grid-template-columns: repeat(3, 3rem);
+  grid-template-rows: repeat(2, 3rem);
+  gap: 4px;
+  width: fit-content;
+  z-index: 10; 
+}
+.t{
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: purple;
+}
+.center {
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: purple;
+  grid-column: 2;
+}
+.t-shape .drag-area{
+  background-color: rgb(94, 1, 94) !important;
+}
+
+
+
+.l-shape {
+  display: grid;
+  grid-template-columns: 3rem 3rem;  /* Один столбец */
+  grid-template-rows: 3rem 3rem 3rem;  /* Три строки */
+  gap: 0.25rem;
+  width: fit-content;
+  grid-auto-flow: column;
+  z-index: 10;
+}
+
+.l{
+border-radius: 0.2rem;
+width: 3rem;
+  height: 3rem;
+  background-color: orange;
+}
+
+/* Этот блок будет внизу и справа */
+.corner {
+  grid-row: 3;  /* Третий ряд (внизу) */
+  grid-column: 2;  /* Во втором столбце (справа) */
+  border-radius: 0.2rem;
+  width: 3rem;
+    height: 3rem;
+    background-color: orange;
+}
+
+.l-shape .drag-area{
+  background-color: rgb(237, 156, 5) !important;
 }
