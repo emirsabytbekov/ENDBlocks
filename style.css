@@ -49,4 +49,18 @@ body {
   height: 3rem;
   color: aliceblue;
   border-radius: 0.2rem;
-} 
+}
+
+.blockSpawner {
+  justify-content: center;
+  background-color: #db967c;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 28rem;
+  position: absolute;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center ;
+}
