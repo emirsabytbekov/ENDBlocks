@@ -133,6 +133,15 @@ let score = 0;
         checkIfWithinField(8,64,8, blockID) 
       );
     }
+
+    if (droppedElement.classList.contains("mirroredL-shape")) {
+      const iShapePositions = [blockID, blockID-8, blockID+7, blockID+8];
+      canPlace = (iShapePositions.every(id => document.getElementById(id).children.length === 0) && 
+        checkIfWithinField(1,8,1, blockID) &&
+        checkIfWithinField(1,64,8, blockID) &&
+        checkIfWithinField(57,64,1, blockID) 
+      );
+    }
   
     
   
@@ -212,6 +221,14 @@ let score = 0;
       document.getElementById(blockID-9).appendChild(children[0]);
       document.getElementById(blockID-8).appendChild(children[1]);
       document.getElementById(blockID+1).appendChild(children[2]);
+      ev.target.removeChild(document.getElementById(data));
+    }
+
+    if (droppedElement.classList.contains("mirroredL-shape")) {
+      document.getElementById(blockID).appendChild(children[3]);
+      document.getElementById(blockID-8).appendChild(children[0]);
+      document.getElementById(blockID+7).appendChild(children[1]);
+      document.getElementById(blockID+8).appendChild(children[2]);
       ev.target.removeChild(document.getElementById(data));
     }
 
@@ -371,6 +388,16 @@ function DeleteLines() {
             }
           }
         } 
+
+        else if(figure.classList.contains('mirroredL-shape')) {
+          for (let i=0; i<8; i++){
+            if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i+57){
+              positions.push(blockId, blockId-8, blockId+7, blockId+8);  
+            }
+          }
+        } 
+
+
           
         canPlace = positions.every(id => {
           const el = document.getElementById(id);
