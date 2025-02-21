@@ -106,6 +106,15 @@ let score = 0;
         checkIfWithinField(49,64,1, blockID)
       );
     }
+
+    if (droppedElement.classList.contains("dash-shape")) {
+      const iShapePositions = [blockID, blockID-1, blockID+1, blockID+2];
+      canPlace = (iShapePositions.every(id => document.getElementById(id).children.length === 0) && 
+        checkIfWithinField(1,64,8, blockID) &&
+        checkIfWithinField(7,64,8, blockID) &&
+        checkIfWithinField(8,64,8, blockID) 
+      );
+    }
   
     
   
@@ -161,6 +170,14 @@ let score = 0;
       document.getElementById(blockID-8).appendChild(children[0]);
       document.getElementById(blockID+8).appendChild(children[1]);
       document.getElementById(blockID+16).appendChild(children[2]);
+      ev.target.removeChild(document.getElementById(data));
+    }
+
+    if (droppedElement.classList.contains("dash-shape")) {
+      document.getElementById(blockID).appendChild(children[3]);
+      document.getElementById(blockID-1).appendChild(children[0]);
+      document.getElementById(blockID+1).appendChild(children[1]);
+      document.getElementById(blockID+2).appendChild(children[2]);
       ev.target.removeChild(document.getElementById(data));
     }
     
@@ -293,6 +310,14 @@ function DeleteLines() {
           for (let i=0; i<8; i++){
             if (blockId !== i+1  &&  blockId !== i+49  &&  blockId !== i+57){
               positions.push(blockId, blockId-8, blockId+8, blockId+16);  
+            }
+          }
+        } 
+
+        else if(figure.classList.contains('dash-shape')) {
+          for (let i=0; i<8; i++){
+            if (blockId !== i*8+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
+              positions.push(blockId, blockId-1, blockId+1, blockId+2);  
             }
           }
         } 
