@@ -379,91 +379,137 @@ function DeleteLines() {
         let canPlace = false; // спорно тру или фолз
         const positions = [];
   
+  if(figure.classList.contains('t-shape')) {
+    if (!checkIfWithinField(1, 64, 8, blockId) ||
+        !checkIfWithinField(8, 64, 8, blockId) ||
+        !checkIfWithinField(57, 64, 1, blockId)) {
+      continue;
+    }
 
-        if(figure.classList.contains('t-shape')) {
-          for (let i=0; i<8; i++){ 
-            if (blockId !== i*8+1  &&  blockId !== i*8+8  &&  blockId !== i+57){
-              positions.push(blockId, blockId-1, blockId+8, blockId+1);
-            }
-           }
-        } 
-        
-        else if(figure.classList.contains('l-shape')) {
-          for (let i=0; i<8; i++){ 
-            if (blockId !== i*8+8  &&  blockId !== i+57){
-              positions.push(blockId, blockId-8, blockId+8, blockId+9);
-            }
-           }  
-        } 
-  
-        else if(figure.classList.contains('o-shape')) {
-         for (let i=0; i<8; i++){ 
-          if (blockId !== i+1  &&  blockId !== i+57 &&
-              blockId !== i*8+1  &&  blockId !== i*8+8){
-            positions.push(
+    for (let i = 0; i < 8; i++) {
+      if (blockId !== i * 8 + 1 && blockId !== i * 8 + 8 && blockId !== i + 57) {
+        positions.push(blockId, blockId - 1, blockId + 8, blockId + 1);
+      }
+    } 
+  } 
+    else if(figure.classList.contains('l-shape')) {
+      if(!checkIfWithinField(8, 64, 8, blockId) ||
+         !checkIfWithinField(57, 64, 1, blockId)){
+        continue;
+      }
+      for (let i=0; i<8; i++){ 
+        if (blockId !== i*8+8  &&  blockId !== i+57){
+          positions.push(blockId, blockId-8, blockId+8, blockId+9);
+        }    
+      }  
+    } 
+    
+    else if(figure.classList.contains('o-shape')) {
+      if(!checkIfWithinField(1,8,1, blockId) ||
+         !checkIfWithinField(1,64,8, blockId) ||
+         !checkIfWithinField(8,64,8, blockId) ||
+         !checkIfWithinField(57,64,1, blockId)){
+        continue;
+      }
+      for (let i=0; i<8; i++){ 
+        if (blockId !== i+1  &&  blockId !== i+57 &&
+            blockId !== i*8+1  &&  blockId !== i*8+8){
+          positions.push(
             blockId-9, blockId-8, blockId-7, 
             blockId-1, blockId, blockId+1, 
             blockId+7, blockId+8, blockId+9
           );
-          }
-         }
-        } 
-  
-        else if(figure.classList.contains('i-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i+1  &&  blockId !== i+49  &&  blockId !== i+57){
-              positions.push(blockId, blockId-8, blockId+8, blockId+16);  
-            }
-          }
-        } 
-
-        else if(figure.classList.contains('dash-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i*8+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
-              positions.push(blockId, blockId-1, blockId+1, blockId+2);  
-            }
-          }
-        } 
-
-        else if(figure.classList.contains('elongatedL-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
-              positions.push(blockId, blockId-8, blockId+1, blockId+2);  
-            }
-          }
-        } 
-
-        else if(figure.classList.contains('z-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i*8+8){
-              positions.push(blockId, blockId-9, blockId-8, blockId+1);  
-            }
-          }
-        } 
-
-        else if(figure.classList.contains('mirroredL-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i+57){
-              positions.push(blockId, blockId-8, blockId+7, blockId+8);  
-            }
-          }
-        } 
-
-        else if(figure.classList.contains('smallO-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i*8+8  &&  blockId !== i+57){
-              positions.push(blockId, blockId+1, blockId+8, blockId+9);  
-            }
-          }
         }
+      } 
+    }
+      else if(figure.classList.contains('i-shape')) {
+        if(!checkIfWithinField(1,8,1, blockId) ||
+         !checkIfWithinField(49,64,1, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i+1  &&  blockId !== i+49  &&  blockId !== i+57){
+          positions.push(blockId, blockId-8, blockId+8, blockId+16);  
+        }
+        }
+      } 
 
-        else if(figure.classList.contains('invertedT-shape')) {
-          for (let i=0; i<8; i++){
-            if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i*8+8){
-              positions.push(blockId, blockId-8, blockId-1, blockId+1);  
-            }
-          }
-        } 
+      else if(figure.classList.contains('dash-shape')) {
+        if(!checkIfWithinField(1,64,8, blockId) ||
+         !checkIfWithinField(7,64,8, blockId) ||
+         !checkIfWithinField(8,64,8, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i*8+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
+          positions.push(blockId, blockId-1, blockId+1, blockId+2);  
+        }
+        }
+      } 
+
+      else if(figure.classList.contains('elongatedL-shape')) {
+        if(!checkIfWithinField(1,8,1, blockId) ||
+         !checkIfWithinField(7,64,8, blockId) ||
+         !checkIfWithinField(8,64,8, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
+          positions.push(blockId, blockId-8, blockId+1, blockId+2);  
+        }
+        }
+      } 
+
+      else if(figure.classList.contains('z-shape')) {
+        if(!checkIfWithinField(1,8,1, blockId) ||
+         !checkIfWithinField(1,64,8, blockId) ||
+         !checkIfWithinField(8,64,8, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i*8+8){
+          positions.push(blockId, blockId-9, blockId-8, blockId+1);  
+        }
+        }
+      } 
+
+      else if(figure.classList.contains('mirroredL-shape')) {
+        if(!checkIfWithinField(1,8,1, blockId) ||
+         !checkIfWithinField(1,64,8, blockId) ||
+         !checkIfWithinField(57,64,1, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i+57){
+          positions.push(blockId, blockId-8, blockId+7, blockId+8);  
+        }
+        }
+      } 
+
+      else if(figure.classList.contains('smallO-shape')) {
+        if(!checkIfWithinField(8,64,8, blockId) ||
+         !checkIfWithinField(57,64,1, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i*8+8  &&  blockId !== i+57){
+          positions.push(blockId, blockId+1, blockId+8, blockId+9);  
+        }
+        }
+      }
+
+      else if(figure.classList.contains('invertedT-shape')) {
+        if(!checkIfWithinField(1,8,1, blockId) ||
+         !checkIfWithinField(1,64,8, blockId) ||
+         !checkIfWithinField(8,64,8, blockId)){
+        continue;
+        }
+        for (let i=0; i<8; i++){
+        if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i*8+8){
+          positions.push(blockId, blockId-8, blockId-1, blockId+1);  
+        }
+        }
+      }
 
 
           
@@ -473,12 +519,16 @@ function DeleteLines() {
         });
          
         if(canPlace) {
+          console.clear();
+          console.log(blockId);
           return true
         };
       }
     }
     return false;
   }
+
+
   
   let isGameOver = false;
   
