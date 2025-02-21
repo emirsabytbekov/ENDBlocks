@@ -133,3 +133,24 @@ width: 3rem;
 .l-shape .drag-area{
   background-color: rgb(237, 156, 5) !important;
 }
+
+
+.o-shape {
+  display: grid;
+  grid-template-columns: 3rem 3rem 3rem;  /* Один столбец */
+  grid-template-rows: 3rem 3rem 3rem;  /* Три строки */
+  gap: 0.25rem;
+  width: fit-content;
+  z-index: 10;
+  }
+  
+  .o {
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: blue;
+  }
+  
+  .o-shape .drag-area{
+    background-color: rgb(1, 1, 199) !important;
+  }

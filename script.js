@@ -6,7 +6,7 @@ function drag(ev) {
 function allowDrop (ev) {
     ev.preventDefault();
   }
-  
+
   function drop (ev) {
   
     const block = ev.target;
@@ -52,4 +52,57 @@ function allowDrop (ev) {
       }
       ev.target.removeChild(document.getElementById(data));
     }  
+    setTimeout(() => {
+        //added check for possibility to place figures after every move
+        if (document.querySelector(".blockSpawner").children.length === 0) {
+         Spawn();
+        }
+    
+        
+      }, 200);
+  }
+
+  function Spawn(){
+ 
+    fetch('figures.html')
+      .then(response => response.text())
+      .then(html => {
+  
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+  
+        // Получаем все элементы с классом "figure"
+        const allFigures = Array.from(doc.querySelectorAll('.figure'));
+  
+        // Функция для выбора случайных фигур
+        function getRandomFigures(arr, num) {
+          const randomFigures = [];
+          const usedIndexes = new Set();
+  
+          while (randomFigures.length < num) {
+            const randomIndex = Math.floor(Math.random() * arr.length);
+  
+            // Проверяем, не был ли уже выбран этот индекс
+            if (!usedIndexes.has(randomIndex)) {
+              randomFigures.push(arr[randomIndex]);
+              usedIndexes.add(randomIndex);
+            }
+          }
+  
+          return randomFigures;
+        }
+  
+        const randomFigures = getRandomFigures(allFigures, 2);
+  
+        const spawner = document.querySelector('.blockSpawner');
+        
+        randomFigures.forEach(figure => {
+          if (figure instanceof Node) {
+            spawner.appendChild(figure);
+  
+            figure.addEventListener('dragstart', drag);
+          }
+        });
+      });
+      
   }
