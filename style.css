@@ -19,3 +19,34 @@ body {
   font-size: 4rem;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content:center;
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+}
+
+.blockField {
+  height: 26rem;
+  width: 26rem;
+  background-color: #b2c0dc;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(3rem, 1fr));
+  gap: 0.25rem; 
+  grid-column-gap: 0.25; 
+  padding: 1rem;
+  border-radius: 0.4rem;
+  position: relative;
+}
+
+.block {
+  background-color: #97adda;
+  width: 3rem;
+  height: 3rem;
+  color: aliceblue;
+  border-radius: 0.2rem;
+} 
