@@ -6,6 +6,7 @@ let score = 0;
 
 
   function Spawn(){
+    isGameOver = false;
  
     fetch('figures.html')
       .then(response => response.text())
@@ -47,6 +48,10 @@ let score = 0;
           }
         });
       });
+
+      setTimeout(() => {
+        checkGameOver();
+      }, 200);
   }
 
   function allowDrop (ev) {
@@ -54,6 +59,7 @@ let score = 0;
   }
 
   function drop (ev) {
+    if(isGameOver) return;
   
     ev.preventDefault();
     const block = ev.target;
@@ -158,26 +164,21 @@ let score = 0;
       ev.target.removeChild(document.getElementById(data));
     }
     
-    DeleteLines()
+    DeleteLines();
+
     //added timeout to update DOM
     setTimeout(() => {
       //added check for possibility to place figures after every move
       if (document.querySelector(".blockSpawner").children.length === 0) {
        Spawn();
       }
-  
+      
+      setTimeout(() => {
+        checkGameOver();
+      }, 200);
+
     }, 200);
   }
-
-  function checkIfWithinField (floor, ceil, step, blockID) {
-    for (let i = floor; i <= ceil; i+=step) {
-      if (blockID === i) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   
 function DeleteLines() {
     const cellsToDelete = new Set(); // Используем Set, чтобы избежать дублирования
@@ -234,4 +235,97 @@ function DeleteLines() {
     }
     return true;
   }
+
+  function checkIfWithinField (floor, ceil, step, blockID) {
+    for (let i = floor; i <= ceil; i+=step) {
+      if (blockID === i) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function canPlaceFigure() {
+    const spawner = document.querySelector('.blockSpawner');
+    if (!spawner) return false;
+    const figures = spawner.querySelectorAll('.figure');
+    
+    for(const figure of figures) {
+  
+      for(let blockId = 1; blockId <= 64; blockId++) {
+        const block = document.getElementById(blockId);
+        if(!block || block.children.length > 0) continue;
+            
+        let canPlace = false; // спорно тру или фолз
+        const positions = [];
+  
+
+        if(figure.classList.contains('t-shape')) {
+          for (let i=0; i<8; i++){ 
+            if (blockId !== i*8+1  &&  blockId !== i*8+8  &&  blockId !== i+57){
+              positions.push(blockId, blockId-1, blockId+8, blockId+1);
+            }
+           }
+        } 
+        
+        else if(figure.classList.contains('l-shape')) {
+          for (let i=0; i<8; i++){ 
+            if (blockId !== i*8+8  &&  blockId !== i+57){
+              positions.push(blockId, blockId-8, blockId+8, blockId+9);
+            }
+           }  
+        } 
+  
+        else if(figure.classList.contains('o-shape')) {
+         for (let i=0; i<8; i++){ 
+          if (blockId !== i+1  &&  blockId !== i+57 &&
+              blockId !== i*8+1  &&  blockId !== i*8+8){
+            positions.push(
+            blockId-9, blockId-8, blockId-7, 
+            blockId-1, blockId, blockId+1, 
+            blockId+7, blockId+8, blockId+9
+          );
+          }
+         }
+        } 
+  
+        
+          
+        canPlace = positions.every(id => {
+          const el = document.getElementById(id);
+          return el !== null && id >= 1 && id <= 64 && el.children.length === 0;
+        });
+         
+        if(canPlace) {
+          return true
+        };
+      }
+    }
+    return false;
+  }
+  
+  let isGameOver = false;
+  
+  function checkGameOver() {
+    if (isGameOver) return true;
+  
+    //add timeout to update DOM
+    setTimeout(() => {
+  
+      const spawner = document.querySelector('.blockSpawner');
+      if (!spawner) return;
+      const canPlace = canPlaceFigure();
+  
+      if(!canPlace && spawner.children.length > 0) {
+        isGameOver = true;
+        alert('You lose!!!');
+        //make all figures undraggable
+        document.querySelectorAll('.figure').forEach(f => {
+          f.draggable = false;
+        });
+        location.reload();
+      }
+    }, 300);
+  }
+
   
