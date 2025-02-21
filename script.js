@@ -115,6 +115,15 @@ let score = 0;
         checkIfWithinField(8,64,8, blockID) 
       );
     }
+
+    if (droppedElement.classList.contains("elongatedL-shape")) {
+      const iShapePositions = [blockID, blockID-8, blockID+1, blockID+2];
+      canPlace = (iShapePositions.every(id => document.getElementById(id).children.length === 0) && 
+        checkIfWithinField(1,8,1, blockID) &&
+        checkIfWithinField(7,64,8, blockID) &&
+        checkIfWithinField(8,64,8, blockID) 
+      );
+    }
   
     
   
@@ -181,6 +190,14 @@ let score = 0;
       ev.target.removeChild(document.getElementById(data));
     }
     
+    if (droppedElement.classList.contains("elongatedL-shape")) {
+      document.getElementById(blockID).appendChild(children[3]);
+      document.getElementById(blockID-8).appendChild(children[0]);
+      document.getElementById(blockID+1).appendChild(children[1]);
+      document.getElementById(blockID+2).appendChild(children[2]);
+      ev.target.removeChild(document.getElementById(data));
+    }
+
     DeleteLines();
 
     //added timeout to update DOM
@@ -318,6 +335,14 @@ function DeleteLines() {
           for (let i=0; i<8; i++){
             if (blockId !== i*8+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
               positions.push(blockId, blockId-1, blockId+1, blockId+2);  
+            }
+          }
+        } 
+
+        else if(figure.classList.contains('elongatedL-shape')) {
+          for (let i=0; i<8; i++){
+            if (blockId !== i+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
+              positions.push(blockId, blockId-8, blockId+1, blockId+2);  
             }
           }
         } 

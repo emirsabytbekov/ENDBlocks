@@ -207,3 +207,53 @@ body {
 .dash-shape .drag-area {
   background-color: rgb(225, 72, 45) !important; 
 }
+
+
+
+.elongatedL-shape {
+  display: grid;
+  grid-template-columns: 3rem 3rem 3rem;  /* Три колонки */
+  grid-template-rows: 3rem 3rem;  /* Два ряда */
+  gap: 0.25rem;
+  width: fit-content;
+  grid-auto-flow: row;
+  z-index: 10;
+}
+
+.elongatedL-shape .elongatedL {
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: deeppink;
+}
+
+.elongatedL-shape .elongatedL:nth-child(1) {
+  grid-row: 1;  /* Первый ряд */
+  grid-column: 1;  /* Первая колонка */
+}
+
+.elongatedL-shape .elongatedL:nth-child(2) {
+  grid-row: 2;  /* Второй ряд */
+  grid-column: 1;  /* Первая колонка */
+}
+
+.elongatedL-shape .elongatedL:nth-child(3) {
+  grid-row: 2;  /* Второй ряд */
+  grid-column: 2;  /* Вторая колонка */
+}
+
+.elongatedL-shape .elongatedL:nth-child(4) {
+  grid-row: 2;  /* Второй ряд */
+  grid-column: 3;  /* Третья колонка */
+}
+
+.elongatedL {
+  border-radius: 0.2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: deeppink;
+}
+
+.elongatedL-shape .drag-area {
+  background-color: rgb(237, 22, 137);
+}
