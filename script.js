@@ -124,6 +124,15 @@ let score = 0;
         checkIfWithinField(8,64,8, blockID) 
       );
     }
+
+    if (droppedElement.classList.contains("z-shape")) {
+      const iShapePositions = [blockID, blockID-9, blockID-8, blockID+1];
+      canPlace = (iShapePositions.every(id => document.getElementById(id).children.length === 0) && 
+        checkIfWithinField(1,8,1, blockID) &&
+        checkIfWithinField(1,64,8, blockID) &&
+        checkIfWithinField(8,64,8, blockID) 
+      );
+    }
   
     
   
@@ -195,6 +204,14 @@ let score = 0;
       document.getElementById(blockID-8).appendChild(children[0]);
       document.getElementById(blockID+1).appendChild(children[1]);
       document.getElementById(blockID+2).appendChild(children[2]);
+      ev.target.removeChild(document.getElementById(data));
+    }
+
+    if (droppedElement.classList.contains("z-shape")) {
+      document.getElementById(blockID).appendChild(children[3]);
+      document.getElementById(blockID-9).appendChild(children[0]);
+      document.getElementById(blockID-8).appendChild(children[1]);
+      document.getElementById(blockID+1).appendChild(children[2]);
       ev.target.removeChild(document.getElementById(data));
     }
 
@@ -343,6 +360,14 @@ function DeleteLines() {
           for (let i=0; i<8; i++){
             if (blockId !== i+1  &&  blockId !== i*8+7  &&  blockId !== i*8+8){
               positions.push(blockId, blockId-8, blockId+1, blockId+2);  
+            }
+          }
+        } 
+
+        else if(figure.classList.contains('z-shape')) {
+          for (let i=0; i<8; i++){
+            if (blockId !== i+1  &&  blockId !== i*8+1  &&  blockId !== i*8+8){
+              positions.push(blockId, blockId-9, blockId-8, blockId+1);  
             }
           }
         } 
