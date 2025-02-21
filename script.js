@@ -4,6 +4,18 @@ let score = 0;
     ev.dataTransfer.setData("text", ev.target.id);
   }
 
+  function drArea() {
+  const areas = document.querySelectorAll(".drag-area");
+  areas.forEach(area => {
+    area.addEventListener("mouseover", () => {
+
+      area.parentElement.setAttribute("draggable", "true")
+    });
+  });
+  console.log(areas);
+}
+
+  drArea();
 
   function Spawn(){
     isGameOver = false;
@@ -271,6 +283,9 @@ let score = 0;
       //added check for possibility to place figures after every move
       if (document.querySelector(".blockSpawner").children.length === 0) {
        Spawn();
+       setTimeout(() => {
+        drArea();
+      }, 200);
       }
       
       setTimeout(() => {
